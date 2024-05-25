@@ -1,0 +1,192 @@
+/* ===navigation=== */
+nav{
+  --mainBackground: hsl(0, 0%, 90%);
+  --botNavBackground: hsl(0, 0%, 94%);
+  --botNavHeight: 58px;
+  --NavTextColor: hsl(0, 0%, 20%);
+  --NavFontSize: var(--fs-12-14, 14px);
+  --subNavBorder: 1px solid hsl(0, 0%, 80%);
+  --navContWidth: var(--cont-width, 1200px);
+
+  background: var(--mainBackground);
+  color: var(--NavTextColor);
+  position: sticky;
+  z-index: 10;
+  top: 0;
+}
+nav .logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+nav .logo img{
+  height: 30px;
+}
+
+nav article{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 -2px 10px hsl(0, 0%, 53%);
+}
+nav ul{
+  list-style: none;
+}
+nav .bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--botNavHeight);
+  width: var(--navContWidth);
+}
+nav article section > div{
+  display: flex;
+  align-items: center;
+  height: inherit;
+}
+nav ul a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--NavTextColor);
+  font-size: var(--NavFontSize);
+}
+nav :where(.desktop-navigation, .mobile-navigation) :where(.navigation-links, .subNav) > li > :where(a, div){
+  display: flex;
+  padding: 10px 15px;
+  text-wrap: nowrap;
+}
+nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
+  justify-content: space-between;
+}
+
+/* --==Responsive==-- */
+@media(min-width: 561px){
+  nav .mobile-navigation{
+    display: none;
+  }
+  nav .desktop-navigation .navigation-links{
+    display: flex;
+    height: inherit;
+  }
+  nav .desktop-navigation .navigation-links > li{
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: inherit;
+  }
+  nav .desktop-navigation .navigation-links > li > div{
+    display: flex;
+  }
+  nav .desktop-navigation .navigation-links img{
+    width: 14px;
+  }
+  nav .desktop-navigation .navigation-links > li > :where(a, div){
+    position: relative;
+    overflow-y: hidden;
+    height: inherit;
+    padding: 0 12px;
+  }
+  nav .desktop-navigation .navigation-links > li > :where(a, div):hover{
+    background: hsl(0, 0%, 80%);
+  }
+  nav .desktop-navigation .hasSubNav{
+    position: relative;
+  }
+  nav .desktop-navigation .navigation-links .subNav{
+    background: var(--botNavBackground);
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    min-width: 100px;
+  }
+  nav .desktop-navigation .navigation-links li:hover > ul{
+    display: flex;
+  }
+  nav .desktop-navigation .navigation-links > .hasSubNav > .subNav{
+    bottom: 0;
+    transform: translateY(100%);
+  }
+  nav .desktop-navigation .subNav > .hasSubNav > .subNav{
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+  }
+  nav .desktop-navigation .subNav > li:not(:last-child){
+    border-bottom: var(--subNavBorder);
+  }
+}
+@media(max-width: 560px){
+  nav .Burger-Cont .Nav-Burger{
+    display: flex;
+    height: 20px;
+    aspect-ratio: 7 / 8;
+    user-select: none;
+    cursor: pointer;
+  }
+  nav .logo p,
+  nav .desktop-navigation{
+    display: none;
+  }
+  nav .mobile-navigation{
+    position: relative;
+  }
+  nav .mobile-navigation .bottom{
+    width: calc(100% - 30px);
+  }
+  nav .mobile-navigation .top{
+    height: var(--botNavHeight);
+    width: 100%;
+    padding: 15px;
+  }
+  nav .mobile-navigation .center{
+    background: var(--mainBackground);
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    min-height: 100vh;
+    min-width: 150px;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  nav .mobile-navigation .center.show{
+    transform: translateX(0%);
+  }
+  nav .mobile-navigation .navigation-links{
+    width: 100%;
+  }
+  nav .mobile-navigation .navigation-links .hasSubNav{
+    display: grid;
+    grid-template-rows: max-content 0fr;
+    position: relative;
+    transition: grid-template-rows 0.3s;
+  }
+  nav .mobile-navigation .navigation-links .hasSubNav a{
+    display: flex;
+    justify-content: space-between;
+  }
+  nav .mobile-navigation .navigation-links .hasSubNav li > :where(a, div){
+    padding-left: 8px;
+  }
+  nav .mobile-navigation .navigation-links img{
+    width: 14px;
+    transition: transform 0.3s;
+  }
+  nav .mobile-navigation .navigation-links .hasSubNav.show{
+    grid-template-rows: max-content 1fr;
+  }
+  nav .mobile-navigation .navigation-links .hasSubNav.show > div > img{
+    transform: rotate(180deg);
+  }
+  nav .mobile-navigation .navigation-links .hasSubNav div + ul{
+    overflow: hidden;
+  }
+  nav .mobile-navigation .navigation-links li .subNav{
+    margin-left: 10px;
+    border-left: var(--subNavBorder);
+  }
+}
