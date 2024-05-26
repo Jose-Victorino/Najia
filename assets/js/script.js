@@ -1,4 +1,16 @@
 const nav = document.querySelector('nav');
+function navColor(){
+  const scrollPos = document.body.scrollTop;
+  if(scrollPos > 0 || !nav.classList.contains('home'))
+    nav.classList.add('scrolled');
+  else
+    nav.classList.remove('scrolled');
+}
+navColor();
+document.body.addEventListener('scroll', () => {
+  navColor();
+});
+
 nav.querySelectorAll('article').forEach((article) => {
   const liNavLinks = article.querySelectorAll('nav .navigation-links li');
 
@@ -33,9 +45,19 @@ ul.forEach((li) => {
 
 const navBurger = nav.querySelector('.mobile-navigation .nav-burger');
 const navXmark = nav.querySelector('.mobile-navigation .nav-xmark');
+const navLinks = nav.querySelector('.mobile-navigation .center');
+function closeNav(e){
+  if(!navLinks.classList.contains('show')) return;
+  if(!e.target.closest('nav .center') && !e.target.closest('nav .start')){
+    navLinks.classList.remove('show');
+    document.body.removeEventListener('click', closeNav);
+  }
+}
 navBurger.addEventListener('click', () => {
-  nav.querySelector('.mobile-navigation .center').classList.toggle('show');
+  navLinks.classList.add('show');
+  document.body.addEventListener('click', closeNav);
 });
 navXmark.addEventListener('click', () => {
-  nav.querySelector('.mobile-navigation .center').classList.toggle('show');
+  navLinks.classList.remove('show');
+  document.body.removeEventListener('click', closeNav);
 });

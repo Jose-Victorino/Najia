@@ -2,18 +2,30 @@
 nav{
   --mainBackground: hsl(0, 0%, 90%);
   --botNavBackground: hsl(0, 0%, 94%);
-  --botNavHeight: 58px;
+  --botNavHeight: 70px;
   --NavTextColor: hsl(0, 0%, 20%);
   --NavFontSize: var(--fs-12-14, 14px);
   --subNavBorder: 1px solid hsl(0, 0%, 80%);
   --navContWidth: var(--cont-width, 1200px);
 
-  background: var(--mainBackground);
-  color: var(--NavTextColor);
-  position: sticky;
+  position: fixed;
+  width: 100%;
   z-index: 10;
   top: 0;
 }
+nav.home{
+  transition: background 0.3s, color 0.3s;
+}
+nav.scrolled{
+  background: var(--mainBackground);
+}
+nav.scrolled ul a{
+  color: var(--NavTextColor);
+}
+nav.scrolled article{
+  box-shadow: 0 -2px 10px hsl(0, 0%, 53%);
+}
+
 nav .logo{
   display: flex;
   align-items: center;
@@ -28,7 +40,9 @@ nav article{
   display: flex;
   justify-content: center;
   width: 100%;
-  box-shadow: 0 -2px 10px hsl(0, 0%, 53%);
+}
+nav.home article{
+  transition: box-shadow 0.3s;
 }
 nav ul{
   list-style: none;
@@ -46,12 +60,14 @@ nav article section > div{
   height: inherit;
 }
 nav ul a{
+  font-size: var(--NavFontSize);
+  font-weight: 500;
+  letter-spacing: 1px;
   display: flex;
   align-items: center;
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--NavTextColor);
-  font-size: var(--NavFontSize);
+}
+nav.home ul a{
+  transition: color 0.3s;
 }
 nav :where(.desktop-navigation, .mobile-navigation) :where(.navigation-links, .subNav) > li > :where(a, div){
   display: flex;
@@ -62,8 +78,15 @@ nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
   justify-content: space-between;
 }
 
-/* --==Responsive==-- */
+/* ===Responsive=== */
 @media(min-width: 561px){
+  nav,
+  nav ul a{
+    color: var(--font-white);
+  }
+  nav.scrolled{
+    color: var(--NavTextColor);
+  }
   nav .mobile-navigation{
     display: none;
   }
@@ -89,7 +112,10 @@ nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
     height: inherit;
     padding: 0 12px;
   }
-  nav .desktop-navigation .navigation-links > li > :where(a, div):hover{
+  nav:not(.scrolled) .desktop-navigation .navigation-links > li > :where(a, div):hover{
+    color: var(--red1);
+  }
+  nav.scrolled .desktop-navigation .navigation-links > li > :where(a, div):hover{
     background: hsl(0, 0%, 80%);
   }
   nav .desktop-navigation .hasSubNav{
@@ -130,6 +156,12 @@ nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
   nav .desktop-navigation{
     display: none;
   }
+  nav .start{
+    color: var(--font-white);
+  }
+  nav.scrolled .start{
+    color: var(--NavTextColor);
+  }
   nav .mobile-navigation{
     position: relative;
   }
@@ -137,9 +169,11 @@ nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
     width: calc(100% - 30px);
   }
   nav .mobile-navigation .top{
+    display: flex;
+    align-items: center;
     height: var(--botNavHeight);
     width: 100%;
-    padding: 15px;
+    padding: 0 15px;
   }
   nav .mobile-navigation .center{
     background: var(--mainBackground);
