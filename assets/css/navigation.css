@@ -4,7 +4,7 @@ nav{
   --botNavBackground: hsl(0, 0%, 94%);
   --botNavHeight: 70px;
   --NavTextColor: hsl(0, 0%, 20%);
-  --NavFontSize: var(--fs-12-14, 14px);
+  --NavFontSize: var(--fs-14-16, 14px);
   --subNavBorder: 1px solid hsl(0, 0%, 80%);
   --navContWidth: var(--cont-width, 1200px);
 
@@ -73,7 +73,7 @@ nav.home ul a{
 }
 nav :where(.desktop-navigation, .mobile-navigation) :where(.navigation-links, .subNav) > li > :where(a, div){
   display: flex;
-  padding: 10px 15px;
+  padding: 15px;
   text-wrap: nowrap;
 }
 nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
@@ -190,7 +190,7 @@ nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
     flex-wrap: wrap;
     align-content: flex-start;
     min-height: 100vh;
-    min-width: 150px;
+    min-width: clamp(150px, 40%, 180px);
     transform: translateX(-100%);
     transition: transform 0.3s;
   }

@@ -28,13 +28,13 @@ main .projects img{
 main .projects .text p{
   line-height: 130%;
 }
-main .projects .description-list{
+main .projects .tags{
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
 }
-main .projects .description-list li{
+main .projects .tags li{
   background: var(--red2);
   padding: 4px 10px;
   color: hsl(0, 0%, 96%);
