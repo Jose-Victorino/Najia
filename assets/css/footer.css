@@ -2,9 +2,6 @@ footer{
   background: hsl(351, 2%, 18%);
   color: var(--font-white);
 }
-footer .cont{
-  padding-top: 40px;
-}
 footer a{
   color: var(--font-white);
 }
@@ -12,7 +9,7 @@ footer .top{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  padding-block: 40px;
+  padding-block: 60px;
 }
 footer .start img{
   width: 200px;
@@ -25,12 +22,13 @@ footer :where(.center, .end) ul{
   flex-direction: column;
   gap: 6px;
 }
-footer .end ul li{
+footer .end .information li{
   display: flex;
   gap: 4px;
 }
-footer .end ul li div{
+footer .end .information li div{
   display: block;
+  align-self: center;
   height: 1lh;
   aspect-ratio: 1;
 }
@@ -51,9 +49,11 @@ footer .bottom{
   footer .start{
     grid-column: span 2;
   }
+  footer .center ul li,
   footer .start h2{
     text-align: center;
   }
+  footer .end .information,
   footer .top > div{
     display: flex;
     flex-direction: column;

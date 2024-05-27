@@ -1,0 +1,30 @@
+main .about .cont > div{
+  display: flex;
+  gap: 20px;
+}
+main .about .cont > div > :first-child{
+  height: 300px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid black;
+}
+main .about .text{
+  margin-top: 15px;
+}
+main .about .text p{
+  line-height: 130%;
+}
+main .chart .cont{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .chart img{
+  width: min(100%, 700px);
+}
+
+@media(max-width: 780px){
+  main .about .cont > div{
+    flex-direction: column;
+    gap: 0;
+  }
+}

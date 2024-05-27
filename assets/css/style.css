@@ -54,47 +54,6 @@ header h1{
   background: var(--red1);
 }
 
-main{
-  display: flex;
-  flex-direction: column;
-}
-main > * {
-  padding-block: 60px;
-}
-main h1{
-  letter-spacing: 2px;
-}
-main h1.center{
-  text-align: center;
-}
-main h1.line.center:after{
-  margin-inline: auto;
-}
-main h1.line:after{
-  content: '';
-  background: var(--red1);
-  display: flex;
-  height: 5px;
-  width: 150px;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  border-radius: 50px;
-}
-main button{
-  align-self: center;
-  padding: 8px 16px;
-  border: 2px solid var(--red2);
-  border-radius: 7px;
-  transition: background 0.3s;
-}
-main button a{
-  color: var(--font-white);
-}
-main button.dark a{
-  color: var(--font-dark);
-  transition: color 0.3s;
-}
-
 /* about */
 main .about .cont > div{
   display: flex;
@@ -105,12 +64,6 @@ main .about p{
 }
 main .about h1{
   margin-bottom: 12px;
-}
-.colorRed{
-  color: var(--red1);
-}
-main .about h2{
-  margin-bottom: 8px;
 }
 main .about h2 span{
   font-weight: normal;
@@ -123,17 +76,17 @@ main .about :where(.mission, .vision){
 }
 
 /* services */
-main .services{
+/* main .services{
   background: hsl(351, 2%, 18%);
   color: var(--font-white);
-}
+} */
 main .services .cont{
   display: flex;
   flex-direction: column;
 }
-main .services h1{
+/* main .services h1{
   color: var(--font-white);
-}
+} */
 main .services .cont > div{
   background: hsl(351, 2%, 85%);
   border-radius: 6px;
@@ -166,7 +119,7 @@ main .services .images img:hover{
 }
 
 /* client */
-main .client{
+/* main .client{
   display: flex;
   flex-direction: column;
 }
@@ -184,11 +137,11 @@ main .client .client-list{
   padding-bottom: 5px;
 }
 main .client .client-list li{
-  aspect-ratio: 3/4;
+  aspect-ratio: 3 / 2;
   min-width: calc((100% - 30px) / 4);
   border: 1px solid #333;
   scroll-snap-align: start;
-}
+} */
 
 /* ===Responsive=== */
 @media(min-width: 561px){
@@ -196,49 +149,33 @@ main .client .client-list li{
   main button:hover{
     background: var(--red2);
   }
-  main button.dark:hover a{
+  main button:hover a{
+  /* main button.dark:hover a{ */
     color: var(--font-white);
   }
 }
 
 @media(max-width: 1400px){
-  :root{
-    --cont-width: 1200px;
-  }
-
   /* client */
-  .client-list.scroll::-webkit-scrollbar-track{
+  /* .client-list.scroll::-webkit-scrollbar-track{
     margin-inline: 45px;
-  }
-  main .client .client-list{
+  } */
+  /* main .client .client-list{
     padding-inline: 45px;
     scroll-padding-inline: 45px;
-  }
+  } */
 }
 @media(max-width: 1250px){
-  :root{
-    --cont-width: 900px;
-    --cont2-width: 900px;
-  }
 
 }
 @media(max-width: 940px){
-  :root{
-    --cont-width: 720px;
-    --cont2-width: 720px;
+  /* header */
+  header .header-gallery{
+    grid-template-columns: repeat(3, 1fr);
   }
 
 }
 @media(max-width: 780px){
-  :root{
-    --cont-width: 540px;
-    --cont2-width: 540px;
-
-    --fs-30-36: 30px;
-    --fs-20-24: 20px;
-    --fs-14-16: 14px;
-    --fs-12-14: 12px;
-  }
   nav .desktop-navigation .navigation-links > li > :where(a, div) {
     padding: 0px 6px;
   }
@@ -247,26 +184,17 @@ main .client .client-list li{
   header{
     --height: 300px;
   }
-  header .header-gallery{
-    grid-template-columns: repeat(3, 1fr);
-  }
   header .header-content img{
     height: 50px;
   }
 
 
   /* client */
-  main .client .client-list li{
+  /* main .client .client-list li{
     min-width: calc((100% - 20px) / 3);
-  }
+  } */
 }
 @media(max-width: 560px){
-  :root{
-    --cont-width: calc(100% - 30px);
-    --cont2-width: calc(100% - 30px);
-  }
-
-
   /* about */
   main .about > div{
     gap: 8px;
@@ -278,17 +206,21 @@ main .client .client-list li{
   }
 
   /* client */
-  .client-list.scroll::-webkit-scrollbar-track{
+  /* .client-list.scroll::-webkit-scrollbar-track{
     margin-inline: 20px;
-  }
-  main .client .client-list{
+  } */
+  /* main .client .client-list{
     padding-inline: 20px;
     scroll-padding-inline: 20px;
-  }
-  main .client .client-list li{
+  } */
+  /* main .client .client-list li{
     min-width: calc((100% - 10px) / 2);
-    /* min-width: calc(100%); */
-  }
+  } */
+}
 
-  td, th{ padding: 3px; }
+@media(max-width: 480px){
+  /* client */
+  /* main .client .client-list li{
+    min-width: calc(100%);
+  } */
 }

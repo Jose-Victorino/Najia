@@ -1,0 +1,20 @@
+main form,
+main .inputs,
+main .inputs > div{
+  display: flex;
+  gap: 10px;
+}
+main form,
+main .inputs{
+  flex-direction: column;
+}
+main .inputs > div input{
+  width: 100%;
+}
+main button{
+  transition: 0.3s;
+}
+main button:hover{
+  color: var(--font-white);
+  background: var(--red2);
+}

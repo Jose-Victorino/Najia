@@ -8,9 +8,12 @@
   --font-dark: hsl(0, 0%, 20%);
   --red1: hsl(351, 73%, 45%);
   --red2: hsl(351, 65%, 38%);
+  --light-gray: hsl(0, 0%, 80%);
+  --gray: hsl(0, 0%, 50%);
+  --dark-gray: hsl(0, 0%, 30%);
 
   --fs-30-36: 36px;
-  --fs-20-24: 24px;
+  --fs-20-26: 26px;
   --fs-14-16: 16px;
   --fs-12-14: 14px;
 }
@@ -44,12 +47,12 @@ button{
 }
 h4, p, li, th, td{ font-size: var(--fs-14-16); }
 ul{ list-style: none; }
-ul:has(ul, ol){
+/* ul:has(ul, ol){
   list-style: disc;
   padding-left: 20px;
-}
-:where(ul, ol) ul{ list-style: circle; }
-:not(nav) :where(ul, ol) :where(ul, ol){ padding-left: 20px; }
+} */
+/* :where(ul, ol) ul{ list-style: circle; } */
+/* :where(ul, ol) :where(ul, ol){ padding-left: 20px; } */
 
 .scroll-container{
   overflow: hidden auto;
@@ -96,22 +99,21 @@ td, th{
   border: 1px solid var(--font-dark);
 }
 
-input, select{ padding: 5px; }
+input, select{ padding: 12px; }
 textarea{
-  --padding: 5px;
-  height: calc(6lh + 2 * (var(--padding) + 2px));
+  --padding: 12px;
+  height: 140px;
   line-height: 1.5;
   padding: var(--padding);
-  padding-inline: calc(var(--padding) + calc((1lh - 1ex) / 2));
   resize: none;
 }
 input, textarea, select{
   color: var(--font-dark);
   outline: none;
   border: 1px solid hsl(222, 2%, 20%);
-  border-radius: 7px;
+  border-radius: 4px;
 }
-input:focus, textarea:focus{ border: 1px solid hsl(0, 0%, 65%); }
+input:focus, textarea:focus{ border: 1px solid hsl(0, 0%, 50%); }
 
 .cont{
   width: var(--cont2-width);
@@ -119,4 +121,102 @@ input:focus, textarea:focus{ border: 1px solid hsl(0, 0%, 65%); }
 }
 
 h1{ font-size: var(--fs-30-36); }
-h2{ font-size: var(--fs-20-24); }
+h2{ font-size: var(--fs-20-26); }
+
+main{
+  display: flex;
+  flex-direction: column;
+}
+main > * {
+  padding-block: 60px;
+}
+main button{
+  align-self: center;
+  padding: 10px 16px;
+  border: 1px solid var(--red2);
+  border-radius: 7px;
+  transition: background 0.3s;
+}
+main h1{
+  letter-spacing: 2px;
+}
+main h1.center{
+  text-align: center;
+}
+main h1.line.center:after{
+  margin-inline: auto;
+}
+main h1.line:after{
+  content: '';
+  background: var(--red1);
+  display: flex;
+  height: 5px;
+  width: 150px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+main h2{
+  margin-bottom: 8px;
+}
+.colorRed{
+  color: var(--red1);
+}
+/* main button a{
+  color: var(--font-white);
+} */
+main button.dark a{
+  color: var(--font-dark);
+  transition: color 0.3s;
+}
+
+@media(max-width: 1400px){
+  :root{
+    --cont-width: 1200px;
+  }
+}
+@media(max-width: 1250px){
+  :root{
+    --cont-width: 900px;
+    --cont2-width: 900px;
+  }
+}
+@media(max-width: 940px){
+  :root{
+    --cont-width: 720px;
+    --cont2-width: 720px;
+  }
+}
+@media(max-width: 780px){
+  :root{
+    --cont-width: 540px;
+    --cont2-width: 540px;
+
+    --fs-30-36: 30px;
+    --fs-20-26: 20px;
+    --fs-14-16: 14px;
+    --fs-12-14: 12px;
+  }
+  main > * {
+    padding-block: 40px;
+  }
+}
+@media(max-width: 560px){
+  :root{
+    --cont-width: calc(100% - 30px);
+    --cont2-width: calc(100% - 30px);
+  }
+  input, select{ padding: 6px; }
+  textarea{
+    --padding: 6px;
+  }
+
+  td, th{ padding: 3px; }
+}
+
+@media(max-width: 480px){
+  /* 
+  remove home classes
+  change nav position
+  uncomment scc and script
+  */
+}

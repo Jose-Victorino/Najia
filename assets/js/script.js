@@ -1,15 +1,15 @@
 const nav = document.querySelector('nav');
-function navColor(){
-  const scrollPos = document.body.scrollTop;
-  if(scrollPos > 0 || !nav.classList.contains('home'))
-    nav.classList.add('scrolled');
-  else
-    nav.classList.remove('scrolled');
-}
-navColor();
-document.body.addEventListener('scroll', () => {
-  navColor();
-});
+// function navColor(){
+//   const scrollPos = document.body.scrollTop;
+//   if(scrollPos > 0 || !nav.classList.contains('home'))
+//     nav.classList.add('scrolled');
+//   else
+//     nav.classList.remove('scrolled');
+// }
+// navColor();
+// document.body.addEventListener('scroll', () => {
+//   navColor();
+// });
 
 nav.querySelectorAll('article').forEach((article) => {
   const liNavLinks = article.querySelectorAll('nav .navigation-links li');
@@ -61,3 +61,23 @@ navXmark.addEventListener('click', () => {
   navLinks.classList.remove('show');
   document.body.removeEventListener('click', closeNav);
 });
+
+// form submit
+function handleSubmit(event){
+  event.preventDefault();
+  
+  const form = document.getElementById('contact-form');
+  const formData = new FormData(form);
+  
+  let mailto = form.action;
+  // let mailto = 'mailto:josevictorino003@gmail.com?';
+  const params = [];
+
+  for (const [key, value] of formData.entries()) {
+    params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+  }
+  form.reset();
+  
+  mailto += params.join('&');
+  window.location.href = mailto;
+}
