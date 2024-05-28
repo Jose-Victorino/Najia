@@ -88,9 +88,17 @@ main .services .cont{
   color: var(--font-white);
 } */
 main .services .cont > div{
-  background: hsl(351, 2%, 85%);
-  border-radius: 6px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+main .services .text{
+  background: var(--light-gray);
   padding: 15px;
+  border-radius: 7px;
+}
+main .services .text p{
+  line-height: 130%;
 }
 main .services .info{
   list-style: disc;
@@ -98,9 +106,8 @@ main .services .info{
 }
 main .services .images{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  margin-block: 20px;
   border-radius: 7px;
 }
 main .services .images li{
@@ -187,6 +194,9 @@ main .client .client-list li{
   header .header-content img{
     height: 50px;
   }
+  main .services .cont > div{
+    flex-direction: column;
+  }
 
 
   /* client */
@@ -198,11 +208,6 @@ main .client .client-list li{
   /* about */
   main .about > div{
     gap: 8px;
-  }
-
-  /* services */
-  main .services .images{
-    grid-template-columns: repeat(2, 1fr);
   }
 
   /* client */

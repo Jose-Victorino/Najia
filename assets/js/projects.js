@@ -81,7 +81,7 @@ for(const project of projects){
   const {title, text, imgSrc, tagList} = project;
   var content =
   `<li>` +
-    `<img src="${imgSrc}" alt="placeholder">` +
+    `<img src="${imgSrc}" loading="lazy" alt="placeholder">` +
     `<div class="text">` +
       `<h2>${title}</h2>` +
       `<p>${text}</p>` +

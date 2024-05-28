@@ -35,8 +35,13 @@ main .projects .tags{
   margin-top: 10px;
 }
 main .projects .tags li{
-  background: var(--red2);
-  padding: 4px 10px;
+  background: linear-gradient(
+    to right,
+    hsl(351, 100%, 37%) 0%,
+    hsl(351, 100%, 40%) 50%,
+    hsl(351, 100%, 34%)
+  );
+  padding: 6px 16px;
   color: hsl(0, 0%, 96%);
   user-select: none;
   /* border: 1px solid var(--red2); */
