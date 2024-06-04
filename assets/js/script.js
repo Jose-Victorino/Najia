@@ -1,15 +1,15 @@
 const nav = document.querySelector('nav');
-// function navColor(){
-//   const scrollPos = document.body.scrollTop;
-//   if(scrollPos > 0 || !nav.classList.contains('home'))
-//     nav.classList.add('scrolled');
-//   else
-//     nav.classList.remove('scrolled');
-// }
-// navColor();
-// document.body.addEventListener('scroll', () => {
-//   navColor();
-// });
+function navColor(){
+  const scrollPos = document.body.scrollTop;
+  if(scrollPos > 0 || !nav.classList.contains('home'))
+    nav.classList.add('scrolled');
+  else
+    nav.classList.remove('scrolled');
+}
+navColor();
+document.body.addEventListener('scroll', () => {
+  navColor();
+});
 
 nav.querySelectorAll('article').forEach((article) => {
   const liNavLinks = article.querySelectorAll('nav .navigation-links li');

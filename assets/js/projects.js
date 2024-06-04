@@ -76,10 +76,9 @@ const projects = [
   },
 ];
 
-
 for(const project of projects){
   const {title, text, imgSrc, tagList} = project;
-  var content =
+  let content =
   `<li>` +
     `<img src="${imgSrc}" loading="lazy" alt="placeholder">` +
     `<div class="text">` +

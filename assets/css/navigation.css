@@ -8,8 +8,7 @@ nav{
   --subNavBorder: 1px solid hsl(0, 0%, 80%);
   --navContWidth: var(--cont-width, 1200px);
 
-  /* position: fixed; */
-  position: sticky;
+  position: fixed;
   width: 100%;
   z-index: 10;
   top: 0;

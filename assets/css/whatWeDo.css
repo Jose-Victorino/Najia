@@ -31,7 +31,7 @@ main .projects .text p{
 main .projects .tags{
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px 8px;
   margin-top: 10px;
 }
 main .projects .tags li{
@@ -43,8 +43,7 @@ main .projects .tags li{
   );
   padding: 6px 16px;
   color: hsl(0, 0%, 96%);
-  user-select: none;
-  /* border: 1px solid var(--red2); */
+  user-select: none;  
   border-radius: 4px;
 }
 
