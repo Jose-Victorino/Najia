@@ -53,13 +53,16 @@ function closeNav(e){
     document.body.removeEventListener('click', closeNav);
   }
 }
-navBurger.addEventListener('click', () => {
-  navLinks.classList.add('show');
-  document.body.addEventListener('click', closeNav);
-});
-navXmark.addEventListener('click', () => {
+document.addEventListener('DOMContentLoaded', () => {
   navLinks.classList.remove('show');
-  document.body.removeEventListener('click', closeNav);
+  navBurger.addEventListener('click', () => {
+    navLinks.classList.add('show');
+    document.body.addEventListener('click', closeNav);
+  });
+  navXmark.addEventListener('click', () => {
+    navLinks.classList.remove('show');
+    document.body.removeEventListener('click', closeNav);
+  });
 });
 
 // form submit

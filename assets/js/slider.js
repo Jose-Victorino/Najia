@@ -71,7 +71,7 @@ class slider{
 
     Object.assign(arrowWrapper.style, {
       position: 'relative',
-      marginInline: '20px',
+      marginInline: (arrows) ? '20px' : '',
       height: 'fit-content',
     });
     Object.assign(listWrapper.style, {
@@ -95,6 +95,7 @@ class slider{
       arrowWrapper.appendChild(prevArrow);
       
       Object.assign(nextArrow.style, {
+        userSelect: 'none',
         position: 'absolute',
         bottom: '50%',
         right: '0',
@@ -103,6 +104,7 @@ class slider{
         cursor: 'pointer',
       });
       Object.assign(prevArrow.style, {
+        userSelect: 'none',
         position: 'absolute',
         bottom: '50%',
         left: '0',
@@ -319,7 +321,6 @@ class slider{
     const updateSliderConfig = () => {
       this.cardWidth = this.cards[0].getBoundingClientRect().width + this.data.gap;
       this.translateVal = this.cardWidth * (this.currentSlide - 1);
-      
       if(type === 'normal'){
         parent.style.transform = `translateX(-${this.translateVal}px)`;
         this.endCard = cards.length - (this.data.perPage - 1);
@@ -374,8 +375,10 @@ class slider{
       breakpointsHandler();
       updateSliderConfig();
     });
-    breakpointsHandler();
-    updateSliderConfig();
+    setTimeout(() => {
+      breakpointsHandler();
+      updateSliderConfig();
+    }, 1);
   }
 }
 
