@@ -1,5 +1,6 @@
 :root{
-  --font: 'helvetica', system-ui, -apple-system, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-1: 'helvetica', system-ui, -apple-system, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-2: 'Bebas Neue', 'Poppins', 'helvetica', system-ui, -apple-system, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
 
   --cont-width: 1350px;
   --cont2-width: 1200px;
@@ -11,9 +12,12 @@
   --light-gray: hsl(0, 0%, 80%);
   --gray: hsl(0, 0%, 50%);
   --dark-gray: hsl(0, 0%, 30%);
+  --black: hsl(0, 0%, 18%);
 
   --fs-30-36: 36px;
   --fs-20-26: 26px;
+  --fs-20-24: 24px;
+  --fs-16-20: 20px;
   --fs-14-16: 16px;
   --fs-12-14: 14px;
 }
@@ -27,7 +31,7 @@
 html, body{ overflow-x: hidden; }
 body{
   background: hsl(0, 0%, 97%);
-  font-family: var(--font);
+  font-family: var(--font-1);
   color: var(--font-dark);
   position: relative;
   width: 100%;
@@ -94,7 +98,7 @@ td, th{
   border: 1px solid var(--font-dark);
 }
 
-input, select{ padding: 12px; }
+input, select{ padding: 10px; }
 textarea{
   --padding: 12px;
   height: 140px;
@@ -122,7 +126,6 @@ h2{ font-size: var(--fs-20-26); }
 main{
   display: flex;
   flex-direction: column;
-  padding-block: 40px;
 }
 main > * {
   padding-block: 60px;
@@ -190,6 +193,8 @@ main button.dark a{
 
     --fs-30-36: 30px;
     --fs-20-26: 20px;
+    --fs-20-24: 20px;
+    --fs-16-20: 16px;
     --fs-14-16: 14px;
     --fs-12-14: 12px;
   }
@@ -211,9 +216,5 @@ main button.dark a{
 }
 
 @media(max-width: 480px){
-  /* 
-  remove home classes
-  change nav position
-  uncomment scc and script
-  */
+  
 }

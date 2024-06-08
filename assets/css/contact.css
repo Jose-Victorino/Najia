@@ -1,8 +1,24 @@
+main section{
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+}
+main .cont{
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  gap: 15px;
+}
 main form,
 main .inputs,
 main .inputs > div{
   display: flex;
   gap: 10px;
+}
+main h1{
+  margin-bottom: 20px;
+}
+main p{
+  line-height: 130%;
 }
 main form,
 main .inputs{
@@ -11,10 +27,43 @@ main .inputs{
 main .inputs > div input{
   width: 100%;
 }
+main form{
+  padding: 15px;
+  box-shadow: 0 0 20px 5px hsl(0, 0%, 0%, 0.2);
+  border-radius: 10px;
+}
 main button{
   transition: 0.3s;
 }
 main button:hover{
   color: var(--font-white);
   background: var(--red2);
+}
+
+@media(max-width: 1400px){
+  
+}
+@media(max-width: 1250px){
+  
+}
+@media(max-width: 940px){
+  main .cont{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  main h1{
+    margin-bottom: 8px;
+  }
+  
+}
+@media(max-width: 780px){
+  
+}
+@media(max-width: 560px){
+  
+}
+
+@media(max-width: 480px){
+  
 }

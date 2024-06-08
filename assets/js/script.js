@@ -53,16 +53,18 @@ function closeNav(e){
     document.body.removeEventListener('click', closeNav);
   }
 }
-document.addEventListener('DOMContentLoaded', () => {
+navBurger.addEventListener('click', () => {
+  navLinks.classList.add('show');
+  document.body.addEventListener('click', closeNav);
+});
+navXmark.addEventListener('click', () => {
   navLinks.classList.remove('show');
-  navBurger.addEventListener('click', () => {
-    navLinks.classList.add('show');
-    document.body.addEventListener('click', closeNav);
-  });
-  navXmark.addEventListener('click', () => {
-    navLinks.classList.remove('show');
-    document.body.removeEventListener('click', closeNav);
-  });
+  document.body.removeEventListener('click', closeNav);
+});
+const headerSlider = document.querySelector('.header-gallery');
+new slider(headerSlider, {
+  type: 'auto-scroll',
+  perPage: 1,
 });
 
 // form submit

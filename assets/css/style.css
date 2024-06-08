@@ -63,6 +63,33 @@ header .header-gallery img{
   background: var(--red1);
 }
 
+/* basic-stats */
+main .basic-stats{
+  background: var(--black);
+  padding-block: 30px;
+}
+main .basic-stats ul{
+  font-family: var(--font-2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  text-align: center;
+}
+main .basic-stats li:not(:last-child){
+  width: 100%;
+  border-right: 1px solid var(--dark-gray);
+  padding-block: 30px;
+}
+main .basic-stats h1{
+  color: var(--font-white);
+  font-size: 48px;
+  margin-bottom: 4px;
+}
+main .basic-stats p{
+  color: var(--font-white);
+  font-size: var(--fs-16-20);
+}
+
 /* about */
 main .about .cont > div{
   display: flex;
@@ -86,8 +113,7 @@ main .about :where(.mission, .vision){
 
 /* services */
 /* main .services{
-  background: hsl(351, 2%, 18%);
-  color: var(--font-white);
+  background: hsl(351, 2%, 24%);
 } */
 main .services .cont{
   display: flex;
@@ -140,20 +166,22 @@ main .services .images img:hover{
 
 /* client */
 main .client{
+  --inline-space: calc((100vw - var(--cont2-width)) / 2);
+
   display: flex;
   flex-direction: column;
 }
-.client-list.scroll::-webkit-scrollbar-track{
-  margin-inline: 80px;
+main .client .client-list.scroll::-webkit-scrollbar-track{
+  margin-inline: var(--inline-space);
 }
 main .client .client-list{
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
   overflow: auto;
-  padding-inline: 80px;
+  padding-inline: var(--inline-space);
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: 80px;
+  scroll-padding-inline: var(--inline-space);
   padding-bottom: 5px;
 }
 main .client .client-list li{
@@ -176,14 +204,7 @@ main .client .client-list li{
 }
 
 @media(max-width: 1400px){
-  /* client */
-  .client-list.scroll::-webkit-scrollbar-track{
-    margin-inline: 45px;
-  }
-  main .client .client-list{
-    padding-inline: 45px;
-    scroll-padding-inline: 45px;
-  }
+  
 }
 @media(max-width: 1250px){
 
@@ -219,8 +240,11 @@ main .client .client-list li{
   header .header-text img{
     height: 50px;
   }}
-
-  /* ===services=== */
+  /* basic-stats */
+  main .basic-stats h1{
+    font-size: 40px;
+  }
+  /* services */
   main .services .cont > div{
     flex-direction: column;
   }
@@ -244,14 +268,15 @@ main .client .client-list li{
     width: 100%;
   }
 
+  /* basic-stats */
+  main .basic-stats h1{
+    font-size: 32px;
+  }
+  main .basic-stats p{
+    font-size: 14px;
+  }
+
   /* client */
-  .client-list.scroll::-webkit-scrollbar-track{
-    margin-inline: 20px;
-  }
-  main .client .client-list{
-    padding-inline: 20px;
-    scroll-padding-inline: 20px;
-  }
   main .client .client-list li{
     min-width: calc((100% - 10px) / 2);
   }
@@ -260,6 +285,6 @@ main .client .client-list li{
 @media(max-width: 480px){
   /* client */
   main .client .client-list li{
-    min-width: calc(100%);
+    min-width: 100%;
   }
 }
