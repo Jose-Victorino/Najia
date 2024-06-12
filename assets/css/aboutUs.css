@@ -13,18 +13,77 @@ main .about .text{
 main .about .text p{
   line-height: 130%;
 }
-main .chart .cont{
+
+main .values .cont{
+  display: flex;
+  gap: 15px;
+}
+main .values p{
+  line-height: 150%;
+}
+main .values h1{
+  margin-bottom: 12px;
+}
+main .values :where(.mission, .vision){
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 7px;
+  width: 50%;
+}
+
+main .employees .cont{
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
-main .chart img{
-  width: min(100%, 700px);
+main .employees h1{
+  margin-bottom: 12px;
+}
+main .employee-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 20px;
+}
+main .employee-list li{
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 5px;
+}
+main .employee-list img{
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  user-select: none;
+}
+main .employee-list .text{
+  background: linear-gradient(hsla(0, 0%, 0%, 0) 40%, hsla(0, 0%, 0%, 0.4) 90%, hsla(0, 0%, 0%, 0.5) 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 5px;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+main .employee-list .text p{
+  font-weight: 600;
+  color: var(--font-white);
+}
+main .employee-list .text span{
+  color: var(--light-gray);
 }
 
 @media(max-width: 780px){
   main .about .cont > div{
     flex-direction: column;
     gap: 0;
+  }
+  main .employee-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }

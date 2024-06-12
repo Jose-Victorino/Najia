@@ -27,7 +27,7 @@ header .header-content{
   gap: 30px;
   height: 100%;
   width: 100%;
-  padding: 0 30px;
+  padding-inline: 30px;
 }
 header .header-text{
   color: var(--font-white);
@@ -64,51 +64,61 @@ header .header-gallery img{
 }
 
 /* basic-stats */
-main .basic-stats{
+.basic-stats{
   background: var(--black);
   padding-block: 30px;
 }
-main .basic-stats ul{
+.basic-stats ul{
   font-family: var(--font-2);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
   text-align: center;
 }
-main .basic-stats li:not(:last-child){
+.basic-stats li:not(:last-child){
   width: 100%;
   border-right: 1px solid var(--dark-gray);
   padding-block: 30px;
 }
-main .basic-stats h1{
+.basic-stats h1{
   color: var(--font-white);
   font-size: 48px;
   margin-bottom: 4px;
 }
-main .basic-stats p{
+.basic-stats p{
   color: var(--font-white);
   font-size: var(--fs-16-20);
 }
 
 /* about */
-main .about .cont > div{
-  display: flex;
-  gap: 15px;
+main .about .cont{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
-main .about p{
+main .about .collage{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 4 / 3;
+  border: 1px solid black;
+}
+main .about .text h1{
+  margin-bottom: 8px;
+}
+main .about .text p{
+  line-height: 130%;
+}
+main .about .text ul{
   line-height: 150%;
 }
-main .about h1{
-  margin-bottom: 12px;
-}
-main .about h2 span{
-  font-weight: normal;
-}
-main .about :where(.mission, .vision){
-  padding: 10px;
-  border: 1px solid #333;
-  border-radius: 7px;
-  width: 50%;
+main .about .text li::before{
+  content: '';
+  background: url('../images/svg/circle-check.svg');
+  display: inline-flex;
+  height: var(--fs-12-14);
+  aspect-ratio: 1;
+  margin-right: 4px;
 }
 
 /* services */
@@ -119,13 +129,13 @@ main .services .cont{
   display: flex;
   flex-direction: column;
 }
-/* main .services h1{
-  color: var(--font-white);
-} */
+main .services h1{
+  /* color: var(--font-white); */
+  margin-bottom: 12px;
+}
 main .services .cont > div{
   display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
+  gap: 20px;
 }
 main .services .text{
   background: var(--light-gray);
@@ -141,7 +151,7 @@ main .services .text button{
 }
 main .services .info{
   list-style: disc;
-  padding-left: 20px;
+  padding-left: 15px;
   /* margin-bottom: 8px; */
 }
 main .services .images{
@@ -256,13 +266,13 @@ main .client .client-list li{
 }
 @media(max-width: 560px){
   /* about */
-  main .about > div{
+  /* main .about > div{
     gap: 8px;
-  }
+  } */
 
   /* header */
-  header .header-content {
-    padding: 0 15px;
+  header .header-content{
+    padding-inline: 15px;
   }
   header .header-gallery{
     width: 100%;

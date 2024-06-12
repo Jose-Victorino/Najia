@@ -6,7 +6,7 @@ main section{
 main .cont{
   display: grid;
   grid-template-columns: 3fr 4fr;
-  gap: 15px;
+  gap: 30px 20px;
 }
 main form,
 main .inputs,
@@ -32,9 +32,6 @@ main form{
   box-shadow: 0 0 20px 5px hsl(0, 0%, 0%, 0.2);
   border-radius: 10px;
 }
-main button{
-  transition: 0.3s;
-}
 main button:hover{
   color: var(--font-white);
   background: var(--red2);
@@ -50,7 +47,6 @@ main button:hover{
   main .cont{
     display: flex;
     flex-direction: column;
-    gap: 30px;
   }
   main h1{
     margin-bottom: 8px;

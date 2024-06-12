@@ -82,7 +82,7 @@ for(const project of projects){
   `<li>` +
     `<img src="${imgSrc}" loading="lazy" alt="placeholder">` +
     `<div class="text">` +
-      `<h2>${title}</h2>` +
+      `<h3>${title}</h3>` +
       `<p>${text}</p>` +
       `<ul class="tags">`;
   

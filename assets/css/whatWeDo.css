@@ -4,7 +4,7 @@ main .services ul{
   gap: 15px;
 }
 main .services li{
-  border-radius: 5px;
+  border-radius: 6px;
   border: 1px solid #333;
 }
 main .services ul img{
@@ -16,9 +16,22 @@ main .services ul img{
 main .services li > div{
   padding: 10px;
 }
-main .services h2{
-  font-size: var(--fs-20-24);
+main .services h3{
+  color: var(--red1);
+}
+main h3{
   margin-bottom: 4px;
+}
+
+main .equipment ul{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+}
+main .equipment li{
+  aspect-ratio: 4 / 3 ;
+  border: 1px solid black;
+  border-radius: 7px;
 }
 
 main .projects .project-list{
@@ -62,17 +75,6 @@ main .projects .tags li{
   padding: 6px 16px;
   user-select: none;  
   border-radius: 4px;
-}
-
-main .equipment ul{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 15px;
-}
-main .equipment li{
-  aspect-ratio: 4 / 3 ;
-  border: 1px solid black;
-  border-radius: 7px;
 }
 
 @media(max-width: 940px){

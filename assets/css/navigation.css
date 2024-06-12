@@ -73,7 +73,7 @@ nav.home ul a{
 }
 nav :where(.desktop-navigation, .mobile-navigation) :where(.navigation-links, .subNav) > li > :where(a, div){
   display: flex;
-  padding: 15px;
+  padding: 15px 20px;
   text-wrap: nowrap;
 }
 nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
@@ -180,7 +180,7 @@ nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
     align-items: center;
     height: var(--botNavHeight);
     width: 100%;
-    padding: 0 15px;
+    padding-inline: 20px;
   }
   nav .mobile-navigation .center{
     background: var(--mainBackground);
@@ -190,7 +190,7 @@ nav :where(.desktop-navigation, .mobile-navigation) ul > li div{
     flex-wrap: wrap;
     align-content: flex-start;
     min-height: 100vh;
-    min-width: clamp(150px, 40%, 180px);
+    min-width: clamp(180px, 40%, 220px);
     transform: translateX(-100%);
     transition: transform 0.3s;
   }

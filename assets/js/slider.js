@@ -92,7 +92,6 @@ class slider{
     for(const card of cards){
       Object.assign(card.style, {
         aspectRatio: '3 / 2',
-        border: '2px solid black',
       });
     }
     if(type === 'normal'){

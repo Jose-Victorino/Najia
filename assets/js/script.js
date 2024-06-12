@@ -46,25 +46,19 @@ ul.forEach((li) => {
 const navBurger = nav.querySelector('.mobile-navigation .nav-burger');
 const navXmark = nav.querySelector('.mobile-navigation .nav-xmark');
 const navLinks = nav.querySelector('.mobile-navigation .center');
-function closeNav(e){
-  if(!navLinks.classList.contains('show')) return;
-  if(!e.target.closest('nav .center') && !e.target.closest('nav .start')){
-    navLinks.classList.remove('show');
-    document.body.removeEventListener('click', closeNav);
-  }
-}
+
 navBurger.addEventListener('click', () => {
   navLinks.classList.add('show');
-  document.body.addEventListener('click', closeNav);
 });
 navXmark.addEventListener('click', () => {
   navLinks.classList.remove('show');
-  document.body.removeEventListener('click', closeNav);
 });
+
 const headerSlider = document.querySelector('.header-gallery');
 new slider(headerSlider, {
   type: 'auto-scroll',
   perPage: 1,
+  interval: 4000,
 });
 
 // form submit
@@ -74,8 +68,7 @@ function handleSubmit(event){
   const form = document.getElementById('contact-form');
   const formData = new FormData(form);
   
-  let mailto = form.action;
-  // let mailto = 'mailto:josevictorino003@gmail.com?';
+  let mailto = 'mailto:josevictorino003@gmail.com?';
   const params = [];
 
   for (const [key, value] of formData.entries()) {
