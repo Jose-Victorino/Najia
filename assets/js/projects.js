@@ -2,7 +2,6 @@ const projectUl = document.querySelector('.project-list');
 const projects = [
   {
     title: 'AMKOR P3',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture1.png',
     tagList: [
       'Rigging',
@@ -10,7 +9,6 @@ const projects = [
   },
   {
     title: 'City of Dreams',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture8.png',
     tagList: [
       'Rigging',
@@ -18,7 +16,6 @@ const projects = [
   },
   {
     title: 'E-PLDT',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture16.png',
     tagList: [
       'Rigging',
@@ -26,7 +23,6 @@ const projects = [
   },
   {
     title: 'Unilab Mamplasan',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture17.png',
     tagList: [
       'Rigging',
@@ -35,7 +31,6 @@ const projects = [
   },
   {
     title: 'Tim Data Center',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture18.png',
     tagList: [
       'Rigging',
@@ -43,7 +38,6 @@ const projects = [
   },
   {
     title: 'YSS Laboratories',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture19.png',
     tagList: [
       'Rigging',
@@ -51,7 +45,6 @@ const projects = [
   },
   {
     title: 'Meridian Building',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture20.png',
     tagList: [
       'Crating',
@@ -60,7 +53,6 @@ const projects = [
   },
   {
     title: 'Unilever',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture21.png',
     tagList: [
       'Crating',
@@ -68,7 +60,6 @@ const projects = [
   },
   {
     title: 'Maynilad',
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat voluptatibus ullam eius. Asperiores obcaecati odio alias illum. Possimus, delectus dignissimos!',
     imgSrc: './assets/images/Picture22.png',
     tagList: [
       'Rigging',
@@ -79,15 +70,12 @@ const projects = [
 for(const project of projects){
   const {title, text, imgSrc, tagList} = project;
   let content =
-  `<li>` +
-    `<img src="${imgSrc}" loading="lazy" alt="placeholder">` +
-    `<div class="text">` +
-      `<h3>${title}</h3>` +
-      `<p>${text}</p>` +
-      `<ul class="tags">`;
+  `<li>
+    <img src="${imgSrc}" loading="lazy" alt="placeholder">
+      <div class="text">
+      <h3>${title}</h3>`;
   
-  for(const tag of tagList)
-    content += `<li>${tag}</li>`;
+  content += `<p class="tags">${tagList.join(', ')}</p>`;
 
-  projectUl.innerHTML += content + `</ul></div></li>`;
+  projectUl.innerHTML += content + `</div></li>`;
 }

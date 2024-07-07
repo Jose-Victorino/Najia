@@ -55,11 +55,34 @@ navXmark.addEventListener('click', () => {
 });
 
 const headerSlider = document.querySelector('.header-gallery');
-new slider(headerSlider, {
-  type: 'auto-scroll',
-  perPage: 1,
-  interval: 4000,
-});
+if(headerSlider){
+  new slider(headerSlider, {
+    type: 'auto-scroll',
+    perPage: 1,
+    interval: 4000,
+  });
+}
+
+const projList = document.querySelector('.project-list');
+if(projList){
+  new slider(projList, {
+    type: "loop",
+    cardAspectRatio: 1,
+    spanWidth: true,
+    perPage: 3,
+    scrollable: true,
+    draggable: true,
+    breakpoints: {
+      780: {perPage: 2},
+      560: {perPage: 1},
+    }
+  });
+}
+
+const equipmentsList = document.querySelector('[data-image-viewer]');
+if(equipmentsList){
+  new imageViewer(equipmentsList);
+}
 
 // form submit
 function handleSubmit(event){

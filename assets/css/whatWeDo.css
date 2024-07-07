@@ -29,58 +29,62 @@ main .equipment ul{
   gap: 15px;
 }
 main .equipment li{
-  aspect-ratio: 4 / 3 ;
-  border: 1px solid black;
+  display: flex;
   border-radius: 7px;
 }
-
-main .projects .project-list{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+main .equipment img{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 7px;
+  border: 1px solid black; /* remove */
 }
+
 main .projects li{
-  background: hsl(0, 0%, 86%);
-  display: flex;
+  position: relative;
+  overflow: hidden;
   border-radius: 5px;
 }
 main .projects img{
   object-fit: cover;
-  height: 300px;
-  aspect-ratio: 3 / 4;
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: 5px;
+  transform: scale(1.02);
 }
 main .projects .text{
-  /* color: var(--font-white); */
-  padding: 15px;
+  background: linear-gradient(
+    hsla(0, 0%, 0%, 0) 40%,
+    hsla(0, 0%, 0%, 0.8) 80%,
+    hsla(0, 0%, 0%, 0.9) 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
 }
-main .projects .text p{
-  line-height: 130%;
+main .projects .text h3{
+  color: var(--font-white);
 }
 main .projects .tags{
   display: flex;
   flex-wrap: wrap;
   gap: 4px 8px;
-  margin-top: 10px;
 }
-main .projects .tags li{
-  background: linear-gradient(
-    to right,
-    hsl(351, 100%, 37%) 0%,
-    hsl(351, 100%, 40%) 50%,
-    hsl(351, 100%, 34%)
-  );
+main .projects .tags{
   font-size: var(--fs-12-14);
-  color: hsl(0, 0%, 96%);
-  padding: 6px 16px;
+  color: var(--gray);
   user-select: none;  
   border-radius: 4px;
 }
 
 @media(max-width: 940px){
-  main .projects .project-list{
-    grid-template-columns: 1fr;
-  }
+
 }
 @media(max-width: 780px){
   main .services ul{
@@ -91,10 +95,6 @@ main .projects .tags li{
   }
 }
 @media(max-width: 560px){
-  main .projects img{
-    height: 100%;
-    width: 140px;
-  }
   main .projects .text{
     padding: 10px;
   }

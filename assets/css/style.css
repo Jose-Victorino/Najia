@@ -251,8 +251,13 @@ main .client .client-list li{
     height: 50px;
   }}
   /* basic-stats */
-  main .basic-stats h1{
+  .basic-stats h1{
     font-size: 40px;
+  }
+  /* about */
+  main .about .cont{
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
   /* services */
   main .services .cont > div{
@@ -276,14 +281,6 @@ main .client .client-list li{
   }
   header .header-gallery{
     width: 100%;
-  }
-
-  /* basic-stats */
-  main .basic-stats h1{
-    font-size: 32px;
-  }
-  main .basic-stats p{
-    font-size: 14px;
   }
 
   /* client */

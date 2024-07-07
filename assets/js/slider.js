@@ -1,4 +1,33 @@
 class slider{
+  /**
+   * @typedef {Object} Pagination
+   * @property {'numbers' | 'dots'} type
+   * @property {string} backgroundColor
+   * @property {string} color
+   * @property {string} hoverBackgroundColor
+   * @property {string} hoverColor
+   * @property {string} selectedBackgroundColor
+   * @property {string} selectedColor
+   *
+   * @typedef {Object} Breakpoints
+   * @property {number} perPage
+   * @property {number} perMove
+   * @property {number} gap
+   * 
+   * @param {HTMLElement} parent
+   * @param {Object} data
+   * @param {'normal' | 'loop' | 'auto-scroll'} data.type
+   * @param {Boolean} data.spanWidth
+   * @param {Boolean} data.arrows
+   * @param {Boolean} data.draggable
+   * @param {Boolean} data.scrollable
+   * @param {Number} data.perPage
+   * @param {Number} data.perMove
+   * @param {Number} data.gap
+   * @param {Number} data.interval
+   * @param {Pagination} data.pagination
+   * @param {Object.<number, Breakpoints>} data.breakpoints
+   */
   constructor(parent, data){
     this.paginationWrapper = document.createElement('div');
     this.arrowWrapper = document.createElement('div');
@@ -12,7 +41,30 @@ class slider{
     this.maxCards = parent.children.length;
     this.translateVal = 0;
     this.currentSlide = 1;
-    this.data = data;
+    this.data = {
+      type: data.type || 'normal',
+      spanWidth: data.spanWidth || false,
+      arrows: data.arrows ?? false,
+      draggable: data.draggable ?? false,
+      scrollable: data.scrollable ?? false,
+      cardAspectRatio: data.cardAspectRatio ?? '3 / 2',
+      perPage: data.perPage ?? 3,
+      perMove: data.perMove ?? 1,
+      gap: data.gap ?? 10,
+      interval: data.interval ?? 3000,
+      breakpoints: data.breakpoints,
+    };
+    if(typeof data.pagination === 'object'){
+      this.data.pagination = {
+        type: data.pagination.type || 'dots',
+        backgroundColor: data.pagination.backgroundColor || 'hsl(222, 5%, 65%)',
+        color: data.pagination.color || 'hsl(0, 0%, 20%)',
+        hoverBackgroundColor: data.pagination.hoverBackgroundColor || 'hsl(222, 5%, 50%)',
+        hoverColor: data.pagination.hoverColor || 'hsl(0, 0%, 95%)',
+        selectedBackgroundColor: data.pagination.selectedBackgroundColor || 'hsl(222, 5%, 25%)',
+        selectedColor: data.pagination.selectedColor || 'hsl(0, 0%, 95%)',
+      }
+    }
 
     this.validation();
 
@@ -21,44 +73,53 @@ class slider{
     
     this.styles();
     this.initEventHandlers();
+    console.log(this);
   }
   validation(){
-    function setOption(option, defaultValue, validType, validator = null){
-      if(!option)
-        return defaultValue;
-      else if(typeof option === validType && (validator ? validator(option) : true))
-        return option;
-      else throw new Error(`Invalid value for option: ${option}`);
+    function validate(option, validType, validator = null){
+      if(!(typeof option === validType && (validator ? validator(option) : true)))
+        throw new Error(`Invalid value for option: ${option}`);
     }
-    const {type, arrows, draggable, perPage, perMove, scrollable, interval, pagination, snap, gap, breakpoints} = this.data;
-
-    if(!(typeof this.parent === 'object' && this.parent.nodeName))
+    
+    if(!(this.parent instanceof HTMLElement))
       throw new Error(`Invalid data format '${this.parent}'. Parent must be a HTMLElement`);
+    if(typeof this.data !== 'object'){
+      this.data = {};
+    }
+    const {type, spanWidth, arrows, draggable, cardAspectRatio, perPage, perMove, scrollable, interval, pagination, gap, breakpoints} = this.data;
 
-    this.data.type = setOption(type, 'normal', 'string', val => ['normal', 'loop', 'repeat', 'auto-scroll'].includes(val));
-    this.data.arrows = setOption(arrows, false, 'boolean');
-    this.data.draggable = setOption(draggable, false, 'boolean');
-    this.data.perPage = setOption(perPage, 3, 'number', val => val > 0);
-    this.data.perMove = setOption(perMove, 1, 'number', val => val > 0);
-    this.data.scrollable = setOption(scrollable, false, 'boolean');
-    this.data.interval = setOption(interval, 3000, 'number', val => val >= 3000);
-    this.data.snap = setOption(snap, 'start', 'string', val => ['start', 'center', 'end'].includes(val));
-    this.data.gap = setOption(gap, 10, 'number', val => val > 0);
-    if(typeof this.data.pagination !== 'undefined'){
-      if(typeof this.data.pagination === 'object'){
-        this.data.pagination.type = setOption(pagination.type, false, 'string', val => ['numbers', 'dots'].includes(val));
-        this.data.pagination.backgroundColor = setOption(pagination.backgroundColor, 'hsl(222, 5%, 65%)', 'string');
-        this.data.pagination.color = setOption(pagination.color, 'hsl(0, 0%, 20%)', 'string');
-        this.data.pagination.hoverBackgroundColor = setOption(pagination.hoverBackgroundColor, 'hsl(222, 5%, 50%)', 'string');
-        this.data.pagination.hoverColor = setOption(pagination.hoverColor, 'hsl(0, 0%, 95%)', 'string');
-        this.data.pagination.selectedBackgroundColor = setOption(pagination.selectedBackgroundColor, 'hsl(222, 5%, 25%)', 'string');
-        this.data.pagination.selectedColor = setOption(pagination.selectedColor, 'hsl(0, 0%, 95%)', 'string');
+    if(typeof cardAspectRatio === 'string'){
+      const frac = cardAspectRatio.split(/(\s*\/\s*)/);
+      if(!(frac.length === 3 && parseFloat(frac[0].trim()) && frac[1].trim() === '/' && parseFloat(frac[2].trim())))
+        throw new Error(`Invalid value for option: ${cardAspectRatio}`);
+    }
+    if(typeof cardAspectRatio === 'number'){
+      if(cardAspectRatio <= 0)
+        throw new Error(`Invalid value for option: ${cardAspectRatio}`);
+    }
+
+    validate(type, 'string', val => ['normal', 'loop', 'auto-scroll'].includes(val));
+    validate(spanWidth, 'boolean');
+    validate(arrows, 'boolean');
+    validate(draggable, 'boolean');
+    validate(perPage, 'number', val => val > 0);
+    validate(perMove, 'number', val => val > 0);
+    validate(scrollable, 'boolean');
+    validate(interval, 'number', val => val >= 3000);
+    validate(gap, 'number', val => val > 0);
+    if(typeof pagination !== 'undefined'){
+      if(typeof pagination === 'object'){
+        validate(pagination.type, 'string', val => ['numbers', 'dots'].includes(val));
+        validate(pagination.backgroundColor, 'string');
+        validate(pagination.color, 'string');
+        validate(pagination.hoverBackgroundColor, 'string');
+        validate(pagination.hoverColor, 'string');
+        validate(pagination.selectedBackgroundColor, 'string');
+        validate(pagination.selectedColor, 'string');
       }
       else throw new Error(`Invalid data format 'pagination'`);
     }
-    else{
-      this.data.pagination = {type: false};
-    }
+    else this.data.pagination = {type: false};
     
     if(type === 'loop' && perMove >= this.cards.length)
       throw new Error(`PerMove must be less than the number of cards when type = 'loop'`)
@@ -87,38 +148,26 @@ class slider{
   }
   styles(){
     const {paginationWrapper, arrowWrapper, listWrapper, nextArrow, prevArrow, paginationCont, paginationUl, pages, parent, cards, maxCards, cardWidth, currentSlide, data} = this;
-    const {type, arrows, draggable, perPage, perMove, scrollable, interval, pagination, snap, gap, breakpoints} = data;
+    const {type, spanWidth, arrows, draggable, cardAspectRatio, perPage, perMove, scrollable, interval, pagination, gap, breakpoints} = data;
     
     for(const card of cards){
       Object.assign(card.style, {
-        aspectRatio: '3 / 2',
+        minWidth: `calc((100% - ${gap * (perPage - 1)}px) / ${perPage})`,
+        aspectRatio: cardAspectRatio,
       });
     }
-    if(type === 'normal'){
-      for(const card of cards){
-        Object.assign(card.style, {
-          minWidth: `calc((100% - ${gap * (perPage - 1)}px) / ${perPage})`,
-        });
-      }
-    }
-    else if(type === 'loop'){
-      for(const card of cards){
-        card.dataset.nthChild = Array.from(cards).indexOf(card) + 1;
-        Object.assign(card.style, {
-          minWidth: `calc((100% - ${gap * (perPage - 1)}px) / ${perPage})`,
-        });
-      }
-    }
-    else if(type === 'auto-scroll'){
-      for(const card of cards){
-        Object.assign(card.style, {
-          minWidth: `calc((100% - ${gap * (perPage - 1)}px) / ${perPage})`,
-        });
-      }
-      this.data.draggable = false;
-      this.data.arrows = false;
-      this.data.scrollable = false;
-      this.data.pagination.type =  false;
+    switch(type){
+      case 'loop':
+        for(const card of cards){
+          card.dataset.nthChild = Array.from(cards).indexOf(card) + 1;
+        }
+        break;
+      case 'auto-scroll':
+        this.data.draggable = false;
+        this.data.arrows = false;
+        this.data.scrollable = false;
+        this.data.pagination.type =  false;
+        break;
     }
     if(['loop', 'auto-scroll'].includes(type)){
       const fragment = document.createDocumentFragment();
@@ -173,7 +222,7 @@ class slider{
       paginationWrapper.appendChild(paginationCont);
       paginationCont.appendChild(paginationUl);
 
-      for(let i = 0; i < this.cards.length; i++){
+      for(let i = 0; i < this.maxCards; i++){
         paginationUl.appendChild(document.createElement('li'));
       }
       this.pages = paginationUl.children;
@@ -217,6 +266,13 @@ class slider{
       this.pages[0].style.color = pagination.selectedColor;
     }
 
+    for(let i = 0; i < this.cards.length; i++){
+      if(i % this.maxCards === this.currentSlide - 1)
+        this.cards[i].classList.add('currentSlide');
+      else
+        this.cards[i].classList.remove('currentSlide');
+    }
+
     Object.assign(paginationWrapper.style, {
       display: 'flex',
       flexDirection: 'column',
@@ -229,66 +285,76 @@ class slider{
       height: 'fit-content',
     });
     Object.assign(listWrapper.style, {
-      overflow: 'hidden',
-      marginInline: (this.data.arrows) ? '15px' : '',
+      overflow: (spanWidth) ? '' : 'hidden',
       height: 'fit-content',
     });
     Object.assign(parent.style, {
       display: 'flex',
       userSelect: 'none',
+      marginInline: '1px',
       gap: `${gap}px`,
     });
   }
   initEventHandlers(){
     const {paginationWrapper, arrowWrapper, listWrapper, nextArrow, prevArrow, paginationCont, paginationUl, pages, parent, cards, maxCards, cardWidth, currentSlide, data} = this;
-    const {type, arrows, draggable, perPage, perMove, scrollable, interval, pagination, snap, gap, breakpoints} = data;
+    const {type, spanWidth, arrows, draggable, cardAspectRatio, perPage, perMove, scrollable, interval, pagination, gap, breakpoints} = data;
     let isDragging = false;
     let dragStart, dragVal, valStart;
     let lastMouseX, velocity = 0, acceleration = 0.25;
 
     const updateSliderTranslate = (ms) => {
       const {translateStart, translateVal, cardWidth, currentSlide, endCard} = this;
+      const delay = ms || 400;
 
-      if(type === 'normal'){
-        parent.style.transform = `translateX(-${translateVal}px)`;
-        if(arrows){
-          nextArrow.style.opacity = (currentSlide === endCard) ? '0.3' : '1';
-          prevArrow.style.opacity = (currentSlide === 1) ? '0.3' : '1';
-        }
+      switch(type){
+        case 'normal':
+          parent.style.transform = `translateX(-${translateVal}px)`;
+          if(arrows){
+            nextArrow.style.opacity = (currentSlide === endCard) ? '0.3' : '1';
+            prevArrow.style.opacity = (currentSlide === 1) ? '0.3' : '1';
+          }
+          break;
+        case 'loop':
+          const totalTranslate = translateStart + translateVal;
+    
+          parent.style.transform = `translateX(-${totalTranslate}px)`;
+          if(totalTranslate <= cardWidth * (maxCards - perPage)){
+            this.translateVal = totalTranslate;
+            setTimeout(() => {
+              parent.style.transform = `translateX(-${totalTranslate + translateStart}px)`;
+            }, delay);
+          }
+          else if(totalTranslate >= translateStart * 2){
+            this.translateVal -= translateStart;
+            setTimeout(() => {
+              parent.style.transform = `translateX(-${totalTranslate - translateStart}px)`;
+            }, delay);
+          }
+          break;
+        case 'auto-scroll':
+          this.translateVal = this.cardWidth * (this.currentSlide - 1);
+          this.currentSlide = this.currentSlide % maxCards || maxCards;
+          
+          parent.style.transform = `translateX(-${this.translateVal}px)`;
+          if(this.translateVal === this.translateEnd){
+            this.translateVal = 0;
+            setTimeout(() => {
+              parent.style.transform = `translateX(-${this.translateVal}px)`;
+            }, delay);
+          }
+          break;
       }
-      else if(type === 'loop'){
-        const totalTranslate = translateStart + translateVal;
-
-        parent.style.transform = `translateX(-${totalTranslate}px)`;
-        if(totalTranslate <= cardWidth * (maxCards - perPage)){
-          this.translateVal = totalTranslate;
-          setTimeout(() => {
-            parent.style.transform = `translateX(-${totalTranslate + translateStart}px)`;
-          }, ms || 400);
-        }
-        else if(totalTranslate >= translateStart * 2){
-          this.translateVal = 0;
-          setTimeout(() => {
-            parent.style.transform = `translateX(-${totalTranslate - translateStart}px)`;
-          }, ms || 400);
-        }
-      }
-      else if(type === 'auto-scroll'){
-        this.translateVal = this.cardWidth * (this.currentSlide - 1);
-        this.currentSlide = this.currentSlide % maxCards || maxCards;
-        
-        parent.style.transform = `translateX(-${this.translateVal}px)`;
-        if(this.translateVal === this.translateEnd){
-          this.translateVal = 0;
-          setTimeout(() => {
-            parent.style.transform = `translateX(-${this.translateVal}px)`;
-          }, ms || 400);
-        }
-      }
-      parent.style.transition = `transform ${(ms / 1000) || 0.4}s`;
+      parent.style.transition = `transform ${delay}ms`;
       setTimeout(() => {
         parent.style.transition = '';
-      }, ms || 400);
+      }, delay);
+
+      for(let i = 0; i < this.cards.length; i++){
+        if(i % this.maxCards === this.currentSlide - 1)
+          this.cards[i].classList.add('currentSlide');
+        else
+          this.cards[i].classList.remove('currentSlide');
+      }
     }
     const updatePagination = () => {
       for(let i = 0; i < pages.length; i++){
@@ -326,25 +392,28 @@ class slider{
       lastMouseX = event.pageX;
 
       dragVal = valStart - (event.pageX - dragStart) - velocity;
-      if(type === 'normal'){
-        if(dragVal > dragEnd){
-          parent.style.transform = `translateX(-${dragEnd}px)`;
-          this.translateVal = dragEnd;
-          velocity = 0;
-        }
-        else if(dragVal < 0){
-          parent.style.transform = `translateX(0)`;
-          this.translateVal = 0;
-          velocity = 0;
-        }
-        else{
-          parent.style.transform = `translateX(-${dragVal}px)`;
+
+      switch(type){
+        case 'normal':
+          if(dragVal > dragEnd){
+            parent.style.transform = `translateX(-${dragEnd}px)`;
+            this.translateVal = dragEnd;
+            velocity = 0;
+          }
+          else if(dragVal < 0){
+            parent.style.transform = `translateX(0)`;
+            this.translateVal = 0;
+            velocity = 0;
+          }
+          else{
+            parent.style.transform = `translateX(-${dragVal}px)`;
+            this.translateVal = dragVal;
+          }
+          break;
+        case 'loop':
+          parent.style.transform = `translateX(-${dragVal + translateStart}px)`;
           this.translateVal = dragVal;
-        }
-      }
-      else if(type === 'loop'){
-        parent.style.transform = `translateX(-${dragVal + translateStart}px)`;
-        this.translateVal = dragVal;
+          break;
       }
     }
     const pressEnd = () => {
@@ -353,21 +422,26 @@ class slider{
 
       if(isDragging){
         let translatedNum = [];
-        if(type === 'normal'){
-          for(let i = 0; i < endCard; i++)
-            translatedNum.push(Math.abs(i * cardWidth - dragVal));
-          let closestCard = translatedNum.indexOf(Math.min(...translatedNum));
-          this.currentSlide = closestCard + 1;
-          this.translateVal = closestCard * cardWidth;
+        let closestCard;
+
+        switch(type){
+          case 'normal':
+            for(let i = 0; i < endCard; i++)
+              translatedNum.push(Math.abs(i * cardWidth - dragVal));
+            closestCard = translatedNum.indexOf(Math.min(...translatedNum));
+            this.currentSlide = closestCard + 1;
+            this.translateVal = closestCard * cardWidth;
+            break;
+          case 'loop':
+            for(let i = 0; i < cards.length; i++){
+              translatedNum.push(Math.abs(i * cardWidth - (dragVal + translateStart)));
+            }
+            closestCard = translatedNum.indexOf(Math.min(...translatedNum));
+            this.currentSlide = (closestCard % maxCards) + 1;
+            this.translateVal = (closestCard * cardWidth) - translateStart;
+            break;
         }
-        else if(type === 'loop'){
-          for(let i = 0; i < cards.length; i++){
-            translatedNum.push(Math.abs(i * cardWidth - (dragVal + translateStart)));
-          }
-          let closestCard = translatedNum.indexOf(Math.min(...translatedNum));
-          this.currentSlide = (closestCard % maxCards) + 1;
-          this.translateVal = (closestCard * cardWidth) - translateStart;
-        }
+
         updateSliderTranslate();
         if(pagination.type) updatePagination();
       }
@@ -385,28 +459,27 @@ class slider{
         this.translateVal -= cardWidth * perMove;
         this.currentSlide -= perMove;
       }
-      if(type === 'normal'){
-        if(this.currentSlide > endCard){
-          this.translateVal = cardWidth * (endCard - 1);
-          this.currentSlide = endCard;
-        }
-        else if(this.currentSlide < 1){ 
-          this.translateVal = 0;
-          this.currentSlide = 1;
-        }
-      }
-      else if(type === 'loop'){
-        let currentCard = ((translateVal + translateStart) / cardWidth) + 1;
-        this.translateVal = (cardWidth * (currentCard - 1)) - translateStart;
-        if(this.currentSlide < 1){
-          this.currentSlide += maxCards;
-        }
-        else if(this.currentSlide > maxCards){
-          this.currentSlide -= maxCards;
-        }
-      }
-      else if(type === 'repeat'){
-
+      switch(type){
+        case 'normal':
+          if(this.currentSlide > endCard){
+            this.translateVal = cardWidth * (endCard - 1);
+            this.currentSlide = endCard;
+          }
+          else if(this.currentSlide < 1){ 
+            this.translateVal = 0;
+            this.currentSlide = 1;
+          }
+          break;
+        case 'loop':
+          let currentCard = ((this.translateVal + translateStart) / cardWidth) + 1;
+          if(this.currentSlide < 1){
+            this.currentSlide += maxCards;
+          }
+          else if(this.currentSlide > maxCards){
+            this.currentSlide -= maxCards;
+          }
+          this.translateVal = (cardWidth * (currentCard - 1)) - translateStart;
+          break;
       }
       updateSliderTranslate();
       if(pagination.type) updatePagination();
@@ -414,25 +487,28 @@ class slider{
     const scrollUpdatePosition = (e) => {
       const {translateStart, translateVal, cardWidth, currentSlide, endCard} = this;
       e.preventDefault();
-      if(type === 'normal'){
-        if(e.wheelDelta < 0){
-          if(currentSlide < endCard)
-            this.currentSlide++;
-        }
-        else{
-          if(currentSlide > 1)
-            this.currentSlide--;
-        }
-        this.translateVal = cardWidth * (this.currentSlide - 1);
-      }
-      else if(type === 'loop'){
-        let currentCard = ((translateVal + translateStart) / cardWidth) + 1;
-        if(e.wheelDelta < 0)
-          currentCard++;
-        else
-          currentCard--;
-        this.currentSlide = currentCard % maxCards || maxCards;
-        this.translateVal = (cardWidth * (currentCard - 1)) - translateStart;
+
+      switch(type){
+        case 'normal':
+          if(e.wheelDelta < 0){
+            if(currentSlide < endCard)
+              this.currentSlide++;
+          }
+          else{
+            if(currentSlide > 1)
+              this.currentSlide--;
+          }
+          this.translateVal = cardWidth * (this.currentSlide - 1);
+          break;
+        case 'loop':
+          let currentCard = ((translateVal + translateStart) / cardWidth) + 1;
+          if(e.wheelDelta < 0)
+            currentCard++;
+          else
+            currentCard--;
+          this.currentSlide = currentCard % maxCards || maxCards;
+          this.translateVal = (cardWidth * (currentCard - 1)) - translateStart;
+          break;
       }
       updateSliderTranslate(150);
       if(pagination.type) updatePagination();
@@ -445,11 +521,15 @@ class slider{
       this.currentSlide = pagePressed + 1;
       this.translateVal = cardWidth * (this.currentSlide - 1);
       
-      if(type === 'loop'){
-        if(this.currentSlide < 1)
-          this.currentSlide += maxCards;
-        else if(this.currentSlide > maxCards)
-          this.currentSlide -= maxCards;
+      switch(type){
+        case 'normal':
+          break;
+        case 'loop':
+          if(this.currentSlide < 1)
+            this.currentSlide += maxCards;
+          else if(this.currentSlide > maxCards)
+            this.currentSlide -= maxCards;
+          break;
       }
       updateSliderTranslate();
       if(pagination.type) updatePagination();
@@ -481,34 +561,36 @@ class slider{
       this.cardWidth = this.cards[0].getBoundingClientRect().width + this.data.gap;
       this.translateVal = this.cardWidth * (this.currentSlide - 1);
       
-      if(type === 'normal'){
-        parent.style.transform = `translateX(-${this.translateVal}px)`;
-        this.endCard = maxCards - (this.data.perPage - 1);
-        
-        if(this.currentSlide > this.endCard)
-          this.currentSlide = this.endCard;
-        if(arrows){
-          nextArrow.style.opacity = (this.currentSlide === this.endCard) ? '0.3' : '1';
-          prevArrow.style.opacity = (this.currentSlide === 1) ? '0.3' : '1';
-        }
-        if(pagination.type){
-          for(let i = 0; i < pages.length; i++){
-            pages[i].style.display = (i < this.endCard) ? 'flex' : 'none';
+      switch(type){
+        case 'normal':
+          parent.style.transform = `translateX(-${this.translateVal}px)`;
+          this.endCard = maxCards - (this.data.perPage - 1);
+          
+          if(this.currentSlide > this.endCard)
+            this.currentSlide = this.endCard;
+          if(arrows){
+            nextArrow.style.opacity = (this.currentSlide === this.endCard) ? '0.3' : '1';
+            prevArrow.style.opacity = (this.currentSlide === 1) ? '0.3' : '1';
           }
-          updatePagination();
-        }
-      }
-      else if(type === 'loop'){
-        this.translateStart = this.cardWidth * (this.cards.length / 3);
-        const totalTranslate = this.translateStart + this.translateVal;
-
-        parent.style.transform = `translateX(-${totalTranslate}px)`;
-      }
-      else if(type === 'auto-scroll'){
-        this.translateEnd = this.cardWidth * (this.cards.length / 2);
-        this.translateVal = this.cardWidth * (this.currentSlide - 1);
-
-        parent.style.transform = `translateX(-${this.translateVal}px)`;
+          if(pagination.type){
+            for(let i = 0; i < pages.length; i++){
+              pages[i].style.display = (i < this.endCard) ? 'flex' : 'none';
+            }
+            updatePagination();
+          }
+          break;
+        case 'loop':
+          this.translateStart = this.cardWidth * (this.cards.length / 3);
+          const totalTranslate = this.translateStart + this.translateVal;
+    
+          parent.style.transform = `translateX(-${totalTranslate}px)`;
+          break;
+        case 'auto-scroll':
+          this.translateEnd = this.cardWidth * (this.cards.length / 2);
+          this.translateVal = this.cardWidth * (this.currentSlide - 1);
+    
+          parent.style.transform = `translateX(-${this.translateVal}px)`;
+          break;
       }
     }
     const breakpointsHandler = () => {
@@ -543,7 +625,6 @@ class slider{
         }
       }
     }
-    
     if(type === 'auto-scroll'){
       autoScroll();
     }
