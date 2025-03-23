@@ -1,19 +1,19 @@
 main .about .cont > div{
   display: flex;
+  flex-direction: column;
   gap: 20px;
-}
-main .about .cont > div > :first-child{
-  height: 300px;
-  aspect-ratio: 4 / 3;
-  border: 1px solid black;
 }
 main .about .text{
   margin-top: 15px;
 }
 main .about .text p{
+  text-indent: 20px;
   line-height: 130%;
 }
-
+main .about img{
+  object-fit: cover;
+  height: 400px;
+}
 main .values .cont{
   display: flex;
   gap: 15px;
@@ -80,6 +80,9 @@ main .employee-list .text span{
   main .about .cont > div{
     flex-direction: column;
     gap: 0;
+  }
+  main .about img{
+    height: auto;
   }
   main .employee-list{
     display: grid;

@@ -82,6 +82,7 @@ header .header-gallery img{
 }
 .basic-stats h1{
   color: var(--font-white);
+  letter-spacing: 1px;
   font-size: 48px;
   margin-bottom: 4px;
 }
@@ -96,12 +97,16 @@ main .about .cont{
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
-main .about .collage{
-  position: relative;
+main .about .img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .about img{
+  object-fit: cover;
   display: flex;
   flex-direction: column;
-  aspect-ratio: 4 / 3;
-  border: 1px solid black;
+  width: 400px;
 }
 main .about .text h1{
   margin-bottom: 8px;
@@ -258,6 +263,9 @@ main .client .client-list li{
   main .about .cont{
     grid-template-columns: 1fr;
     gap: 15px;
+  }
+  main .about img{
+    width: 100%;
   }
   /* services */
   main .services .cont > div{
